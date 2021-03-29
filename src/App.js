@@ -1,9 +1,15 @@
-import './App.css';
+import "./App.css";
+import HabitForm from "./components/HabitForm";
+import Habits from "./components/Habits";
+import Navi from "./components/Navi";
 
 function App() {
-  return (<div>test</div>
+  return (
+    <>
+      <Navi />
+      <Habits />
+    </>
   );
-  
 }
 
 export default App;
