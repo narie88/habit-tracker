@@ -1,15 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 
-class Navi extends Component {
-  render() {
-    const { totalCount } = this.props;
-    return (
-      <nav className="navbar">
-        <span>Habit Tracker</span>
-        <span className="navbar-count">{totalCount}</span>
-      </nav>
-    );
-  }
-}
+const Navi = ({ totalCount }) => {
+  return (
+    <nav className="navbar">
+      <span>Habit Tracker</span>
+      <span className="navbar-count">{totalCount}</span>
+    </nav>
+  );
+};
 
 export default Navi;

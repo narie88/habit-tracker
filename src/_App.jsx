@@ -26,19 +26,24 @@ class App extends Component {
   };
 
   handleIncrease = (habit) => {
-    const habits = [...this.state.habits];
-    const index = habits.indexOf(habit);
-    habits[index].count++;
+    const habits = this.state.habits.map((item) => {
+      if (item.id === habit.id) {
+        return { ...habit, count: habit.count + 1 };
+      }
+      return item;
+    });
     this.setState({
       habits,
     });
   };
   handleDecrease = (habit) => {
-    const habits = [...this.state.habits];
-    const index = habits.indexOf(habit);
-    const count = habits[index].count - 1;
+    const habits = this.state.habits.map((item) => {
+      if (item.id === habit.id && habit.count > 0) {
+        return { ...habit, count: habit.count - 1 };
+      }
+      return item;
+    });
 
-    habits[index].count = count < 0 ? 0 : count;
     this.setState({
       habits,
     });
@@ -48,14 +53,26 @@ class App extends Component {
     const habits = this.state.habits.filter((item) => item.id !== habit.id);
     this.setState({ habits });
   };
+
   onSubmit = (text) => {
     const newHabit = {
       name: text,
-      id: 4,
+      id: Date.now(),
       count: 0,
     };
     this.setState({
-      habits: [...this.state.habits, newHabit],
+      habits: [newHabit, ...this.state.habits],
+    });
+  };
+  onReset = () => {
+    const habits = this.state.habits.map((item) => {
+      if (item.count > 0) {
+        return { ...item, count: 0 };
+      }
+      return item;
+    });
+    this.setState({
+      habits,
     });
   };
   render() {
@@ -69,6 +86,7 @@ class App extends Component {
           onDecrease={this.handleDecrease}
           onDelete={this.handleDelete}
           onSubmit={this.onSubmit}
+          onReset={this.onReset}
         />
       </div>
     );
